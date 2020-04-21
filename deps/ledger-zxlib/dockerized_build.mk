@@ -53,12 +53,12 @@ TTY_SETTING:=
 endif
 
 define run_docker
-	docker run $(TTY_SETTING) $(INTERACTIVE_SETTING) --rm \
+	podman run $(TTY_SETTING) $(INTERACTIVE_SETTING) --rm \
 	-e SCP_PRIVKEY=$(SCP_PRIVKEY) \
 	-e BOLOS_SDK=$(1) \
 	-e BOLOS_ENV=/opt/bolos \
-	-u $(USERID) \
-	-v $(shell pwd):/project \
+	-u 0 \
+	-v $(shell pwd):/project:z \
 	$(DOCKER_IMAGE) \
 	"COIN=$(COIN) APP_TESTING=$(APP_TESTING) $(2)"
 endef
