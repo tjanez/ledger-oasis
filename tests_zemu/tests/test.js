@@ -29,6 +29,7 @@ const sim_options = {
     press_delay: 300,
     logging: true,
     start_delay: 1000,
+    model: "nanos",
     custom: `-s "${APP_SEED}"`
     , X11: true
 };
