@@ -24,7 +24,10 @@ const sha512 = require("js-sha512");
 const Resolve = require("path").resolve;
 const APP_PATH = Resolve("../app/bin/app.elf");
 
-const APP_SEED = "equip will roof matter pink blind book anxiety banner elbow sun young"
+// const APP_SEED = "equip will roof matter pink blind book anxiety banner elbow sun young"
+// TrustWallet test vector's mnemonic.
+// https://github.com/trustwallet/wallet-core/blob/edee0ed3427086cc31d63271f5ce9a13292c1653/trezor-crypto/crypto/tests/test_check.c#L8672-L8707.
+const APP_SEED = "ring crime symptom enough erupt lady behave ramp apart settle citizen junk"
 const sim_options = {
     press_delay: 300,
     logging: true,
@@ -72,7 +75,7 @@ describe('Basic checks', function () {
             await sim.start(sim_options);
             const app = new OasisApp(sim.getTransport());
 
-            const path = [44, 474, 5, 0x80000000, 0x80000003];
+            const path = [44];
             const resp = await app.getAddressAndPubKey(path);
 
             console.log(resp)
@@ -80,8 +83,8 @@ describe('Basic checks', function () {
             expect(resp.return_code).toEqual(0x9000);
             expect(resp.error_message).toEqual("No errors");
 
-            const expected_bech32_address = "oasis1qphdkldpttpsj2j3l9sde9h26cwpfwqwwuhvruyu";
-            const expected_pk = "aba52c0dcb80c2fe96ed4c3741af40c573a0500c0d73acda22795c37cb0f1739";
+            const expected_bech32_address = "oasis1qpd8snzkz0v3dtpvzujm0va5x26gp8rrks4aqnfe";
+            const expected_pk = "5155f089bdb44b6c8df78a3bab2ca53897bc5ad3d349e4f1c7e1c1c4e74458ce";
 
             expect(resp.bech32_address).toEqual(expected_bech32_address);
             expect(resp.pk.toString('hex')).toEqual(expected_pk);
