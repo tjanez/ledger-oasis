@@ -1,0 +1,36 @@
+# NOTE: This name appears in GitHub's Checks API and in workflow's status badge.
+name: ci-tests
+
+# Trigger the workflow when:
+on:
+  # A push occurs to one of the matched branches.
+  push:
+    branches:
+      - tadej/fedora
+
+env:
+  CI: "true"
+
+jobs:
+  tests:
+    # NOTE: This name appears in GitHub's Checks API.
+    name: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+      - name: Set up Node.js 12
+        uses: actions/setup-node@v2.1.3
+        with:
+          node-version: "12.x"
+      - name: Build Ledger app
+        run: |
+          make build
+      - name: Install and build JS deps
+        run: |
+          make zemu_install
+      - name: Run zemu tests
+        run: |
+          make zemu_test
