@@ -75,7 +75,7 @@ describe('Basic checks', function () {
             await sim.start(sim_options);
             const app = new OasisApp(sim.getTransport());
 
-            const path = [44];
+            const path = [44, 474, 0, 0x80000000, 0x80000000];
             const resp = await app.getAddressAndPubKey(path);
 
             console.log(resp)
@@ -83,8 +83,8 @@ describe('Basic checks', function () {
             expect(resp.return_code).toEqual(0x9000);
             expect(resp.error_message).toEqual("No errors");
 
-            const expected_bech32_address = "oasis1qpd8snzkz0v3dtpvzujm0va5x26gp8rrks4aqnfe";
-            const expected_pk = "5155f089bdb44b6c8df78a3bab2ca53897bc5ad3d349e4f1c7e1c1c4e74458ce";
+            const expected_bech32_address = "oasis1qrp4gdktt23pgkt9ypmw5nk0gfavge4g0yjwyvh2";
+            const expected_pk = "321803c4076180e92eae219da95497176ae2ddc1c38c205170b9673c13ba6049";
 
             expect(resp.bech32_address).toEqual(expected_bech32_address);
             expect(resp.pk.toString('hex')).toEqual(expected_pk);
